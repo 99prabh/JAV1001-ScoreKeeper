@@ -4,4 +4,6 @@
     <string name="team_2">Team 2</string>
     <string name="increase">Increase</string>
     <string name="decrease">Decrease</string>
+    <string name="team1Score">0</string>
+    <string name="team2Score">0</string>
 </resources>
