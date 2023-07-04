@@ -102,7 +102,40 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="75sp" />
-
+            <Spinner
+                android:id="@+id/scoringSpinnerTeam2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:dropDownWidth="100dp"
+                android:textSize="18sp"
+                android:minHeight="48dp" />
+            <Button
+                android:id="@+id/team2IncreaseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="30dp"
+                android:width="150dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/increase"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+            <Button
+                android:id="@+id/team2DecreaseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:width="150dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/decrease"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
