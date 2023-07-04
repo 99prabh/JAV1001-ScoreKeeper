@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
-
+    <!-- Team 1 Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
+            <!-- Team 1 Name -->
             <TextView
                 android:id="@+id/team1Name"
                 android:layout_width="wrap_content"
@@ -28,6 +29,7 @@
                 android:text="@string/team_1"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
+            <!-- Team 1 Score -->
             <TextView
                 android:id="@+id/team1Score"
                 android:layout_width="150dp"
@@ -40,6 +42,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="75sp" />
+            <!-- Scoring Options for Team 1 -->
             <Spinner
                 android:id="@+id/scoringSpinnerTeam1"
                 android:layout_width="wrap_content"
@@ -50,6 +53,7 @@
                 android:dropDownWidth="100dp"
                 android:textSize="18sp"
                 android:minHeight="48dp" />
+            <!-- Increase Button for Team 1 -->
             <Button
                 android:id="@+id/team1IncreaseButton"
                 android:layout_width="wrap_content"
@@ -62,6 +66,7 @@
                 android:text="@string/increase"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
+            <!-- Decrease Button for Team 1 -->
             <Button
                 android:id="@+id/team1DecreaseButton"
                 android:layout_width="wrap_content"
@@ -75,11 +80,13 @@
                 android:textColor="@color/white"
                 android:textSize="16sp" />
         </LinearLayout>
+        <!-- Team 2 Section -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
+            <!-- Team 2 Name -->
             <TextView
                 android:id="@+id/team2Name"
                 android:layout_width="wrap_content"
@@ -90,6 +97,7 @@
                 android:text="@string/team_2"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
+            <!-- Team 2 Score -->
             <TextView
                 android:id="@+id/team2Score"
                 android:layout_width="150dp"
@@ -102,6 +110,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="75sp" />
+            <!-- Scoring Options for Team 2 -->
             <Spinner
                 android:id="@+id/scoringSpinnerTeam2"
                 android:layout_width="wrap_content"
@@ -112,6 +121,7 @@
                 android:dropDownWidth="100dp"
                 android:textSize="18sp"
                 android:minHeight="48dp" />
+            <!-- Increase Button for Team 2 -->
             <Button
                 android:id="@+id/team2IncreaseButton"
                 android:layout_width="wrap_content"
@@ -124,6 +134,7 @@
                 android:text="@string/increase"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
+            <!-- Decrease Button for Team 2 -->
             <Button
                 android:id="@+id/team2DecreaseButton"
                 android:layout_width="wrap_content"
