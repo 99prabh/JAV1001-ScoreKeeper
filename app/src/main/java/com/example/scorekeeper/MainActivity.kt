@@ -35,5 +35,50 @@ class MainActivity : AppCompatActivity() {
         val team2IncreaseButton = findViewById<Button>(R.id.team2IncreaseButton)
         val team2DecreaseButton = findViewById<Button>(R.id.team2DecreaseButton)
 
+        team1IncreaseButton.setOnClickListener {
+            val score = team1Spinner.selectedItem.toString().toInt()
+            increaseTeam1Score(score)
+        }
+        team1DecreaseButton.setOnClickListener {
+            val score = team1Spinner.selectedItem.toString().toInt()
+            decreaseTeam1Score(score)
+        }
+        team2IncreaseButton.setOnClickListener {
+            val score = team2Spinner.selectedItem.toString().toInt()
+            increaseTeam2Score(score)
+        }
+
+        team2DecreaseButton.setOnClickListener {
+            val score = team2Spinner.selectedItem.toString().toInt()
+            decreaseTeam2Score(score)
+        }
+    }
+    private fun increaseTeam1Score(score: Int) {
+        team1Score += score
+        updateTeam1ScoreText()
+    }
+    private fun decreaseTeam1Score(score: Int) {
+        if (team1Score >= score) {
+            team1Score -= score
+            updateTeam1ScoreText()
+        }
+    }
+
+    private fun increaseTeam2Score(score: Int) {
+        team2Score += score
+        updateTeam2ScoreText()
+    }
+    private fun decreaseTeam2Score(score: Int) {
+        if (team2Score >= score) {
+            team2Score -= score
+            updateTeam2ScoreText()
+        }
+    }
+    private fun updateTeam1ScoreText() {
+        team1ScoreTextView.text = team1Score.toString()
+    }
+
+    private fun updateTeam2ScoreText() {
+        team2ScoreTextView.text = team2Score.toString()
     }
 }
