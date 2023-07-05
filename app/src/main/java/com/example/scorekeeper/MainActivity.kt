@@ -5,6 +5,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -71,13 +72,16 @@ class MainActivity : AppCompatActivity() {
         updateTeam1ScoreText()
     }
 
-    // Decrease Team 1 score by the given score value (if possible)
+    // Handles decreasing the Team 1 score by the given score value, ensuring it doesn't go below zero
     private fun decreaseTeam1Score(score: Int) {
         if (team1Score >= score) {
             team1Score -= score
             updateTeam1ScoreText()
+        } else {
+            // If the score goes below zero, set it to zero and show a message to the user
+            team1Score = 0
+            showToast("Team 1 score cannot go below zero!")
         }
-        // Add handling for negative scores or score limits if required
     }
 
     // Increase Team 2 score by the given score value
@@ -86,13 +90,21 @@ class MainActivity : AppCompatActivity() {
         updateTeam2ScoreText()
     }
 
-    // Decrease Team 2 score by the given score value (if possible)
+    // Handles decreasing the Team 2 score by the given score value, ensuring it doesn't go below zero
     private fun decreaseTeam2Score(score: Int) {
         if (team2Score >= score) {
             team2Score -= score
             updateTeam2ScoreText()
+        } else {
+            // If the score goes below zero, set it to zero and show a message to the user
+            team2Score = 0
+            showToast("Team 2 score cannot go below zero!")
         }
-        // Add handling for negative scores or score limits if required
+    }
+
+    // Shows a short toast message on the screen
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     // Update the displayed Team 1 score on the UI
@@ -104,4 +116,5 @@ class MainActivity : AppCompatActivity() {
     private fun updateTeam2ScoreText() {
         team2ScoreTextView.text = team2Score.toString()
     }
+
 }
