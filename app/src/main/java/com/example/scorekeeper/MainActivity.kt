@@ -2,66 +2,48 @@ package com.example.scorekeeper
 
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.scorekeeper.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var team1ScoreTextView: TextView
-    private lateinit var team2ScoreTextView: TextView
-    private lateinit var team1Spinner: Spinner
-    private lateinit var team2Spinner: Spinner
+    private lateinit var binding: ActivityMainBinding
     private var team1Score = 0
     private var team2Score = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        // Initialize views
-        team1ScoreTextView = findViewById(R.id.team1Score)
-        team2ScoreTextView = findViewById(R.id.team2Score)
-        team1Spinner = findViewById(R.id.scoringSpinnerTeam1)
-        team2Spinner = findViewById(R.id.scoringSpinnerTeam2)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         // Set up the scoring options in the spinner
         val scoringOptions = listOf("1", "2", "3", "6")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, scoringOptions)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        team1Spinner.adapter = adapter
-        team2Spinner.adapter = adapter
+        binding.scoringSpinnerTeam1.adapter = adapter
+        binding.scoringSpinnerTeam2.adapter = adapter
 
         // Handle the click events for the buttons
-        val team1IncreaseButton = findViewById<Button>(R.id.team1IncreaseButton)
-        val team1DecreaseButton = findViewById<Button>(R.id.team1DecreaseButton)
-        val team2IncreaseButton = findViewById<Button>(R.id.team2IncreaseButton)
-        val team2DecreaseButton = findViewById<Button>(R.id.team2DecreaseButton)
-
-        // Increase Team 1 score when increase button is clicked
-        team1IncreaseButton.setOnClickListener {
-            val score = team1Spinner.selectedItem.toString().toInt()
+        binding.team1IncreaseButton.setOnClickListener {
+            val score = binding.scoringSpinnerTeam1.selectedItem.toString().toInt()
             increaseTeam1Score(score)
         }
 
-        // Decrease Team 1 score when decrease button is clicked
-        team1DecreaseButton.setOnClickListener {
-            val score = team1Spinner.selectedItem.toString().toInt()
+        binding.team1DecreaseButton.setOnClickListener {
+            val score = binding.scoringSpinnerTeam1.selectedItem.toString().toInt()
             decreaseTeam1Score(score)
         }
 
-        // Increase Team 2 score when increase button is clicked
-        team2IncreaseButton.setOnClickListener {
-            val score = team2Spinner.selectedItem.toString().toInt()
+        binding.team2IncreaseButton.setOnClickListener {
+            val score = binding.scoringSpinnerTeam2.selectedItem.toString().toInt()
             increaseTeam2Score(score)
         }
 
-        // Decrease Team 2 score when decrease button is clicked
-        team2DecreaseButton.setOnClickListener {
-            val score = team2Spinner.selectedItem.toString().toInt()
+        binding.team2DecreaseButton.setOnClickListener {
+            val score = binding.scoringSpinnerTeam2.selectedItem.toString().toInt()
             decreaseTeam2Score(score)
         }
     }
@@ -109,12 +91,11 @@ class MainActivity : AppCompatActivity() {
 
     // Update the displayed Team 1 score on the UI
     private fun updateTeam1ScoreText() {
-        team1ScoreTextView.text = team1Score.toString()
+        binding.team1Score.text = team1Score.toString()
     }
 
     // Update the displayed Team 2 score on the UI
     private fun updateTeam2ScoreText() {
-        team2ScoreTextView.text = team2Score.toString()
+        binding.team2Score.text = team2Score.toString()
     }
-
 }
