@@ -27,8 +27,8 @@
                 android:layout_marginTop="100dp"
                 android:layout_marginBottom="30dp"
                 android:text="@string/team_1"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                style="@style/TextView"/>
             <!-- Team 1 Score -->
             <TextView
                 android:id="@+id/team1Score"
@@ -40,8 +40,8 @@
                 android:fontFamily="sans-serif-condensed-light"
                 android:text="@string/team1Score"
                 android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="75sp" />
+                android:textSize="75sp"
+                style="@style/TextView"/>
             <!-- Scoring Options for Team 1 -->
             <Spinner
                 android:id="@+id/scoringSpinnerTeam1"
@@ -64,8 +64,8 @@
                 android:width="150dp"
                 android:fontFamily="sans-serif"
                 android:text="@string/increase"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                style="@style/IncreaseButton"/>
             <!-- Decrease Button for Team 1 -->
             <Button
                 android:id="@+id/team1DecreaseButton"
@@ -77,8 +77,8 @@
                 android:width="150dp"
                 android:fontFamily="sans-serif"
                 android:text="@string/decrease"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                style="@style/DecreaseButton"/>
         </LinearLayout>
         <!-- Team 2 Section -->
         <LinearLayout
@@ -95,8 +95,8 @@
                 android:layout_marginTop="100dp"
                 android:layout_marginBottom="30dp"
                 android:text="@string/team_2"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                style="@style/TextView"/>
             <!-- Team 2 Score -->
             <TextView
                 android:id="@+id/team2Score"
@@ -108,8 +108,8 @@
                 android:fontFamily="sans-serif-condensed-light"
                 android:text="@string/team2Score"
                 android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="75sp" />
+                android:textSize="75sp"
+                style="@style/TextView"/>
             <!-- Scoring Options for Team 2 -->
             <Spinner
                 android:id="@+id/scoringSpinnerTeam2"
@@ -132,8 +132,7 @@
                 android:width="150dp"
                 android:fontFamily="sans-serif"
                 android:text="@string/increase"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+                style="@style/IncreaseButton"/>
             <!-- Decrease Button for Team 2 -->
             <Button
                 android:id="@+id/team2DecreaseButton"
@@ -145,8 +144,7 @@
                 android:width="150dp"
                 android:fontFamily="sans-serif"
                 android:text="@string/decrease"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+                style="@style/DecreaseButton"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
