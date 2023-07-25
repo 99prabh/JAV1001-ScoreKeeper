@@ -36,6 +36,12 @@ class MainActivity : AppCompatActivity() {
         binding.scoringSpinnerTeam1.adapter = adapter
         binding.scoringSpinnerTeam2.adapter = adapter
 
+        // Retrieve scores from SharedPreferences and update the UI
+        team1Score = sharedPreferences.getInt("team1_score", 0)
+        team2Score = sharedPreferences.getInt("team2_score", 0)
+        updateTeam1ScoreText()
+        updateTeam2ScoreText()
+
         // Handle the click events for the buttons
         binding.team1IncreaseButton.setOnClickListener {
             val score = binding.scoringSpinnerTeam1.selectedItem.toString().toInt()
@@ -77,6 +83,8 @@ class MainActivity : AppCompatActivity() {
             val sharedPreferences = getSharedPreferences("scorekeeper", Context.MODE_PRIVATE)
             with(sharedPreferences.edit()) {
                 putInt("night_mode", newNightMode)
+                putInt("team1_score", team1Score) // Save Team 1 score
+                putInt("team2_score", team2Score) // Save Team 2 score
                 apply()
             }
         }
