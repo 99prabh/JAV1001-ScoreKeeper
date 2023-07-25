@@ -6,4 +6,5 @@
     <string name="decrease">Decrease</string>
     <string name="team1Score">0</string>
     <string name="team2Score">0</string>
+    <string name="toggle_night_mode">Night Mode</string>
 </resources>
