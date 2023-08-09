@@ -1,8 +1,10 @@
 package com.example.scorekeeper
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -12,9 +14,27 @@ import com.example.scorekeeper.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    // Initialize view binding and score variables
     private lateinit var binding: ActivityMainBinding
     private var team1Score = 0
     private var team2Score = 0
+    private var shouldSaveScores = false
+
+    // Save scores on configuration changes
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("team1Score", team1Score)
+        outState.putInt("team2Score", team2Score)
+    }
+
+    // Restore scores from saved instance state
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        team1Score = savedInstanceState.getInt("team1Score", 0)
+        team2Score = savedInstanceState.getInt("team2Score", 0)
+        updateTeam1ScoreText()
+        updateTeam2ScoreText()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Retrieve night mode preference from SharedPreferences
@@ -23,12 +43,22 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(nightMode)
 
         super.onCreate(savedInstanceState)
-        // Initialize binding for the activity
+
+        // Initialize view binding
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
-        // Set up the scoring options in the spinner
+        // Retrieve saved scores if necessary
+        shouldSaveScores = sharedPreferences.getBoolean("save_scores", false)
+        if (shouldSaveScores) {
+            team1Score = sharedPreferences.getInt("team1Score", 0)
+            team2Score = sharedPreferences.getInt("team2Score", 0)
+            updateTeam1ScoreText()
+            updateTeam2ScoreText()
+        }
+
+        // Set up scoring options in the spinner
         val scoringOptions = listOf("1", "2", "3", "6")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, scoringOptions)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -36,13 +66,7 @@ class MainActivity : AppCompatActivity() {
         binding.scoringSpinnerTeam1.adapter = adapter
         binding.scoringSpinnerTeam2.adapter = adapter
 
-        // Retrieve scores from SharedPreferences and update the UI
-        team1Score = sharedPreferences.getInt("team1_score", 0)
-        team2Score = sharedPreferences.getInt("team2_score", 0)
-        updateTeam1ScoreText()
-        updateTeam2ScoreText()
-
-        // Handle the click events for the buttons
+        // Set click listeners for score buttons
         binding.team1IncreaseButton.setOnClickListener {
             val score = binding.scoringSpinnerTeam1.selectedItem.toString().toInt()
             increaseTeam1Score(score)
@@ -64,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Create options menu and handle night mode switch
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // Inflate the options menu layout
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -75,55 +100,96 @@ class MainActivity : AppCompatActivity() {
 
         // Add a listener to the night mode switch to update the night mode setting
         nightModeSwitch?.setOnCheckedChangeListener { _, isChecked ->
-            val newNightMode = if (isChecked) AppCompatDelegate.MODE_NIGHT_YES else
-                AppCompatDelegate.MODE_NIGHT_NO
+            // Determine the new night mode based on the switch state
+            val newNightMode = if (isChecked) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+            // Apply the new night mode setting
             AppCompatDelegate.setDefaultNightMode(newNightMode)
 
             // Save the new night mode setting and team scores to SharedPreferences
             val sharedPreferences = getSharedPreferences("scorekeeper", Context.MODE_PRIVATE)
             with(sharedPreferences.edit()) {
                 putInt("night_mode", newNightMode)
-                putInt("team1_score", team1Score) // Save Team 1 score
-                putInt("team2_score", team2Score) // Save Team 2 score
+                putInt("team1Score", team1Score) // Save Team 1 score
+                putInt("team2Score", team2Score) // Save Team 2 score
                 apply()
             }
         }
         return super.onCreateOptionsMenu(menu)
     }
 
-    // Increase Team 1 score by the given score value
+    // Handle options menu item clicks
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_about -> {
+                // Show a Toast with developer information
+                showToast("Developer: Prabhjot Singh Jolly\nCourse Code: JAVA1001")
+                return true
+            }
+            R.id.action_settings -> {
+                // Navigate to SettingsActivity
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
+    // Increase Team 1 score and handle saving
     private fun increaseTeam1Score(score: Int) {
         team1Score += score
         updateTeam1ScoreText()
+        if (shouldSaveScores) {
+            saveScores()
+        }
     }
 
-    // Handle decreasing the Team 1 score by the given score value, ensuring it doesn't go below zero
+    // Decrease Team 1 score and handle saving
     private fun decreaseTeam1Score(score: Int) {
         if (team1Score >= score) {
             team1Score -= score
             updateTeam1ScoreText()
+            if (shouldSaveScores) {
+                saveScores()
+            }
         } else {
-            // If the score goes below zero, set it to zero and show a message to the user
+            // Show a message if trying to decrease below zero
             team1Score = 0
             showToast("Team 1 score cannot go below zero!")
         }
     }
 
-    // Increase Team 2 score by the given score value
+    // Increase Team 2 score and handle saving
     private fun increaseTeam2Score(score: Int) {
         team2Score += score
         updateTeam2ScoreText()
+        if (shouldSaveScores) {
+            saveScores()
+        }
     }
 
-    // Handle decreasing the Team 2 score by the given score value, ensuring it doesn't go below zero
+    // Decrease Team 2 score and handle saving
     private fun decreaseTeam2Score(score: Int) {
         if (team2Score >= score) {
             team2Score -= score
             updateTeam2ScoreText()
+            if (shouldSaveScores) {
+                saveScores()
+            }
         } else {
-            // If the score goes below zero, set it to zero and show a message to the user
+            // Show a message if trying to decrease below zero
             team2Score = 0
             showToast("Team 2 score cannot go below zero!")
+        }
+    }
+
+    // Save scores to SharedPreferences
+    private fun saveScores() {
+        val sharedPreferences = getSharedPreferences("scorekeeper", Context.MODE_PRIVATE)
+        with(sharedPreferences.edit()) {
+            putInt("team1Score", team1Score)
+            putInt("team2Score", team2Score)
+            apply()
         }
     }
 
